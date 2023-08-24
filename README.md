@@ -40,13 +40,14 @@ In this section, you’ll use Python and SQLAlchemy to do a basic climate analys
   7. Use Pandas to print the summary statistics for the precipitation data.
 
 *Station Analysis*
+------------------------
 
   1. Design a query to calculate the total number of stations in the dataset.
   2. Design a query to find the most-active stations (that is, the stations that have the most rows). To do so, complete the following steps:
 
   --HINT--
   You’ll need to use functions such as *func.min*, *func.max*, *func.avg*, and *func.count* in your queries.
-
+  
     - List the stations and observation counts in descending order.
     - Answer the following question: which station id has the greatest number of observations?
     - Using the most-active station id, calculate the lowest, highest, and average temperatures.
@@ -63,32 +64,26 @@ In this section, you’ll use Python and SQLAlchemy to do a basic climate analys
 **Part 2: Design Your Climate App**
 ----------------------------------
 Now that you’ve completed your initial analysis, you’ll design a Flask API based on the queries that you just developed. To do so, use Flask to create your routes as follows:
+  1. */*
+     - Start at the homepage.
+     - List all the available routes.
 
-/
-Start at the homepage.
+  2. */api/v1.0/precipitation*
+     - Convert the query results to a dictionary by using *date* as the key and *prcp* as the value.
+     - Return the JSON representation of your dictionary.
 
-List all the available routes.
+  3. */api/v1.0/stations*
+     - Return a JSON list of stations from the dataset.
+       
+  4. */api/v1.0/tobs*
+     - Query the dates and temperature observations of the most-active station for the previous year of data.
+     - Return a JSON list of temperature observations for the previous year.
 
-/api/v1.0/precipitation
-Convert the query results to a dictionary by using date as the key and prcp as the value.
+  5. */api/v1.0/<start>* and */api/v1.0/<start>/<end>*
+     - Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or start-end range.
+     - For a specified start, calculate *TMIN*, *TAVG*, and *TMAX* for all the dates greater than or equal to the start date.
+     - For a specified start date and end date, calculate *TMIN*, *TAVG*, and *TMAX* for the dates from the start date to the end date, inclusive.
 
-Return the JSON representation of your dictionary.
-
-/api/v1.0/stations
-Return a JSON list of stations from the dataset.
-/api/v1.0/tobs
-Query the dates and temperature observations of the most-active station for the previous year of data.
-
-Return a JSON list of temperature observations for the previous year.
-
-/api/v1.0/<start> and /api/v1.0/<start>/<end>
-Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a specified start or start-end range.
-
-For a specified start, calculate TMIN, TAVG, and TMAX for all the dates greater than or equal to the start date.
-
-For a specified start date and end date, calculate TMIN, TAVG, and TMAX for the dates from the start date to the end date, inclusive.
-
-Hints
-Join the station and measurement tables for some of the queries.
-
-Use the Flask jsonify function to convert your API data to a valid JSON response object.
+**Hints**
+  - Join the station and measurement tables for some of the queries.
+  - Use the Flask *jsonify* function to convert your API data to a valid JSON response object.
