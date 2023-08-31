@@ -68,20 +68,20 @@ def stats(start=None, end=None):
 
     if not end:
         start = dt.datetime.strptime(start, "%Y%m%d")
-        results1 = session.query(*sel).\
+        results = session.query(*sel).\
             filter(meas.date >= start).all()
         session.close()
-        temp_stat1 = list(np.ravel(results1))
-        return jsonify(temp_stat1)
+        temps = list(np.ravel(results))
+        return jsonify(temps)
 
     start = dt.datetime.strptime(start, "%Y%m%d")
     end = dt.datetime.strptime(end, "%Y%m%d")
-    results2 = session.query(*sel).\
+    results = session.query(*sel).\
         filter(meas.date >= start).\
         filter(meas.date <= end).all()
     session.close()
-    temp_stat2 = list(np.ravel(results2))
-    return jsonify(temp_stat2)
+    temps = list(np.ravel(results))
+    return jsonify(temps = temps)
 
 
 if __name__ == '__main__':
