@@ -67,14 +67,19 @@ def stats(start=None, end=None):
           func.max(meas.tobs)]
 
     if not end:
+        start = dt.datetime.strptime(start, "%Y%m%d")
         results1 = session.query(*sel).\
             filter(meas.date >= start).all()
+        session.close()
         temp_stat1 = list(np.ravel(results1))
         return jsonify(temp_stat1)
 
+    start = dt.datetime.strptime(start, "%Y%m%d")
+    end = dt.datetime.strptime(end, "%Y%m%d")
     results2 = session.query(*sel).\
         filter(meas.date >= start).\
         filter(meas.date <= end).all()
+    session.close()
     temp_stat2 = list(np.ravel(results2))
     return jsonify(temp_stat2)
 
